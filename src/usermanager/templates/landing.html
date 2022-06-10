@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BDS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+        .w3-row-padding img {margin-bottom: 12px}
+        .w3-sidebar {width: 120px;background: #222;}
+        #main {margin-left: 120px}
+        @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+    </style>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("in");
+            var r = document.getElementById("reg");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                r.style.display = "none";
+            } else {
+                x.style.display = "none";
+                r.style.display = "block";
+            }
+        }
+        </script>
+</head>
+<body class="w3-grey">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <i class="fa fa-home w3-xxlarge"></i>
+        <p>HOME</p>
+    </a>
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <i class="fa fa-user w3-xxlarge"></i>
+        <p>My Account</p>
+    </a>
+    <a href="{% url 'scm' %}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <i class="fa fa-truck w3-xxlarge"></i>
+        <p>SCM</p>
+    </a>
+    <a href="{% url 'crm' %}" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <i class="fa fa-envelope w3-xxlarge"></i>
+        <p>CRM</p>
+    </a>
+</nav>
+
+
+<div class="w3-padding-large" id="main">
+    <!-- Header/Home -->
+    <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+        <h1>CAT DEALERSHIP</h1>
+        <p>Welcome to your most trusted heavy vehihicle and machinery dealer!</p>
+        {% if  session  %}
+            <h4>logout</h4> <button></button>
+        {% else %}
+            <a href="javascript:void(0);" onclick="myFunction();"><h4> Signin | Signup </h4></a>
+            <div id="in">
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {{ useraccount }}
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div id="reg" display="none">
+                <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    {{ userinfo }}
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            
+        {% endif %} 
+        
+    </header>
+
+    <!-- About Section -->
+    <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="about">
+        <h2 class="w3-text-light-grey">Service Booking</h2>
+        <hr style="width:200px" class="w3-opacity">
+        
+        <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+
+            <form action="/action_page.php">
+            <label for="fname">Customer name:</label><br>
+            <input type="text" id="fname" name="fname" value="John"><br>
+            <label for="lname">Vehicle/Machine Make:</label><br>
+            <input type="text" id="lname" name="make" value="CAT"><br><br>
+            <label for="lname">Vehicle/Machine Model:</label><br>
+            <input type="text" id="lname" name="model" value="22RS"><br><br>
+            <label for="lname">Date:</label><br>
+            <input type="datetime-local" id="lname" name="date" ><br><br>
+            <input type="submit" value="Book Service">
+            </form> 
+
+            
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
